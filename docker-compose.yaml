@@ -7,8 +7,13 @@ services:
     container_name: vite_dev_container
     ports:
       - "5173:5173"
+    networks:
+      - jobix-network
     volumes:
       - .:/app
       - /app/node_modules
     environment:
       CHOKIDAR_USEPOLLING: "true"
+networks:
+  jobix-network:
+    external: true

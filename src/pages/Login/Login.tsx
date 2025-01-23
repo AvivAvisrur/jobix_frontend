@@ -1,122 +1,71 @@
-import React, { useState } from "react";
-import { Grid2 as Grid, Box, Typography, TextField, Link } from "@mui/material";
+import React from "react";
+import { Grid2 as Grid, Typography } from "@mui/material";
+import Button from "../../components/Button.tsx";
+import GoogleIcon from "../../assets/Google.svg";
+import AppleIcon from "../../assets/apple-icon.svg";
+import { sharedButtonStyles } from "./consts.ts";
 import "./Login.css";
-import Button from "../../components/Button";
-import CreateAccount from "./CreateAccount.tsx";
-import { CSSTransition } from "react-transition-group";
-const LoginPage = () => {
-  const [showCreateAccount, setShowCreateAccount] = useState(false);
+import { CreateAccountProps } from "./Login.types.ts";
+import { Link } from "react-router";
 
-  const handleCreateAccountClick = () => {
-    setShowCreateAccount(true);
-  };
+const Login: React.FC<CreateAccountProps> = () => {
   return (
-    <Grid container sx={{ minHeight: "100vh" }}>
-      {/*
-        Left Section: Could hold an image or brand panel
-      */}
-      <Grid
-        container
-        rowSpacing={5}
-        direction="column"
-        sx={{ justifyContent: "center", alignItems: "center" }}
-        size={6}
-      >
-        {/* <Grid item xs={4}>
-          <img src="src\logo.svg" />
-        </Grid> */}
-        <Grid size={12} textAlign={"center"}>
-          <Typography
-            fontWeight={"bold"}
-            fontSize={"2rem"}
-            fontFamily={"Poppins"}
-            whiteSpace={"nowrap"}
-          >
-            Welcome to Jobix
-          </Typography>
-          <Typography>Now your finances are in one place</Typography>
-          <Typography>and always under control</Typography>
-        </Grid>
-        {!showCreateAccount ? (
-          <Grid
-            container
-            size={12}
-            direction={"column"}
-            sx={{ justifyContent: "center", alignItems: "center" }}
-          >
-            <>
-              <Grid size={{ xs: 6, md: 4, lg: 4, xl: 4 }}>
-                <Button
-                  fullWidth
-                  sx={{ p: 1.5 }}
-                  onClick={() => {}}
-                  style={{
-                    color: "white",
-                    backgroundColor: "#000000",
-                    borderRadius: "14px",
-                    textDecoration: "capitalize",
-                    textTransform: "none",
-                  }}
-                >
-                  Sign In
-                </Button>
-              </Grid>
-              <Grid size={{ xs: 6, md: 4, lg: 4, xl: 4 }}>
-                <Button
-                  fullWidth
-                  sx={{ p: 1.5 }}
-                  onClick={handleCreateAccountClick}
-                  style={{
-                    color: "#000000",
-                    backgroundColor: "#FFF",
-                    borderRadius: "14px",
-                    border: "1px solid #747474",
-                    textDecoration: "capitalize",
-                    textTransform: "none",
-                  }}
-                >
-                  Create account
-                </Button>
-              </Grid>
-            </>
-          </Grid>
-        ) : (
-          <CSSTransition
-            in={true}
-            appear={true}
-            timeout={500}
-            classNames="fade-slide"
-          >
-            <CreateAccount />
-          </CSSTransition>
-        )}
+    <Grid
+      container
+      rowSpacing={3}
+      size={12}
+      direction={"column"}
+      sx={{ justifyContent: "center", alignItems: "center" }}
+    >
+      <Grid size={{ xs: 12, md: 12, lg: 6, xl: 6 }}>
+        <Button
+          component={"a"}
+          fullWidth
+          variant="outlined"
+          href="http://localhost:3001/api/auth/google"
+          sx={sharedButtonStyles}
+        >
+          <img
+            src={GoogleIcon}
+            alt="Google"
+            style={{ width: 20, marginRight: 8 }}
+          />
+          Continue with Google
+        </Button>
       </Grid>
-      {/*
-        Right Section: Holds the login form
-      */}
-      <Grid
-        size={6}
-        container
-        direction="column"
-        sx={{
-          backgroundColor: "#FFA600",
-          textAlign: "center",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Grid>
-          <Typography fontFamily={"Wittgenstein"} fontSize={"2.5rem"}>
-            You are what you do,
-          </Typography>
-          <Typography fontFamily={"Wittgenstein"} fontSize={"2.5rem"}>
-            not what you’ll do
-          </Typography>
-        </Grid>
-        {/* Or place a logo, branding, or any custom content here */}
+      <Grid size={{ xs: 12, md: 12, lg: 6, xl: 6 }}>
+        <Button
+          onClick={() => {}}
+          fullWidth
+          variant="outlined"
+          sx={sharedButtonStyles}
+        >
+          <img
+            src={AppleIcon}
+            alt="Apple"
+            style={{ width: 20, marginRight: 8 }}
+          />
+          Continue with Apple
+        </Button>
+      </Grid>
+      <Grid size={{ xs: 12, md: 12, lg: 6, xl: 6 }}>
+        <Typography fontFamily={"Inter"}>
+          Already have an account?
+          <Link
+            to="/login"
+            style={{
+              color: "#000000",
+              textDecoration: "underline",
+              fontWeight: "bold",
+              marginLeft: "10px",
+            }}
+          >
+            Log in
+          </Link>
+        </Typography>
       </Grid>
     </Grid>
   );
 };
 
-export default LoginPage;
+export default Login;

@@ -13,6 +13,7 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { signUpUser } from "../../redux/slices/userSlice";
 import { useNavigate } from "react-router";
+import { useTranslation } from "react-i18next";
 
 type FormValues = {
   firstName: string;
@@ -20,14 +21,14 @@ type FormValues = {
   email: string;
   password: string;
   dateOfBirth: Date;
-  mobileNumber: string;
+  mobileNum: string;
 };
 const CreateAccount: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const { loading } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const navigate = useNavigate(); // Initialize useNavigate
-
+  const { t } = useTranslation();
   const {
     control,
     handleSubmit,
@@ -38,7 +39,6 @@ const CreateAccount: React.FC = () => {
   });
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-
     const resultAction = await dispatch(signUpUser(data)); // Dispatch the thunk
 
     if (signUpUser.fulfilled.match(resultAction)) {
@@ -80,7 +80,7 @@ const CreateAccount: React.FC = () => {
               fontSize={"1.3em"}
               textAlign={"center"}
             >
-              Create Account
+              {t("createAccount.mainTitle")}
             </Typography>
           </Grid>
           <Grid container spacing={3} size={{ xs: 12, md: 12, lg: 8, xl: 8 }}>
@@ -92,7 +92,7 @@ const CreateAccount: React.FC = () => {
                 render={({ field, fieldState }) => (
                   <>
                     <InputLabel htmlFor={"firstName"} shrink={false}>
-                      <Typography>First name</Typography>
+                      <Typography>{t("generalFields.firstName")}</Typography>
                     </InputLabel>
                     <TextField
                       {...field}
@@ -113,7 +113,7 @@ const CreateAccount: React.FC = () => {
                 render={({ field, fieldState }) => (
                   <>
                     <InputLabel {...field} shrink={false}>
-                      <Typography>Last name</Typography>
+                      <Typography>{t("generalFields.lastName")}</Typography>
                     </InputLabel>
                     <TextField
                       {...field}
@@ -135,7 +135,7 @@ const CreateAccount: React.FC = () => {
               render={({ field, fieldState }) => (
                 <>
                   <InputLabel {...field} shrink={false}>
-                    <Typography>Email</Typography>
+                    <Typography>{t("generalFields.email")}</Typography>
                   </InputLabel>
                   <TextField
                     {...field}
@@ -143,6 +143,28 @@ const CreateAccount: React.FC = () => {
                     helperText={fieldState.error?.message}
                     fullWidth
                     size="small"
+                  />
+                </>
+              )}
+            />
+          </Grid>
+          <Grid size={{ xs: 12, md: 12, lg: 8, xl: 8 }}>
+            <Controller
+              name="mobileNum"
+              control={control}
+              rules={{ required: "Mobile number is required" }}
+              render={({ field, fieldState }) => (
+                <>
+                  <InputLabel {...field} shrink={false}>
+                    <Typography>{t("generalFields.mobileNumber")}</Typography>
+                  </InputLabel>
+                  <TextField
+                    {...field}
+                    error={!!fieldState.error}
+                    helperText={fieldState.error?.message}
+                    fullWidth
+                    size="small"
+                    placeholder={t("generalFields.mobileFormat")} // Example placeholder
                   />
                 </>
               )}
@@ -163,7 +185,7 @@ const CreateAccount: React.FC = () => {
               render={({ field, fieldState }) => (
                 <>
                   <InputLabel {...field} shrink={false}>
-                    <Typography>Password</Typography>
+                    <Typography>{t("generalFields.password")}</Typography>
                   </InputLabel>
                   <TextField
                     {...field}
@@ -204,7 +226,9 @@ const CreateAccount: React.FC = () => {
                 textTransform: "none",
               }}
             >
-              {isSubmitting ? "Submitting..." : "Submit"}
+              {isSubmitting
+                ? `${t("generalFields.submitting")}...`
+                : t("generalFields.submitButton")}
             </Button>
           </Grid>
         </>

@@ -4,7 +4,6 @@ import {
   Divider,
   Grid2 as Grid,
   InputLabel,
-  Paper,
   TextField,
   Typography,
 } from "@mui/material";
@@ -13,6 +12,7 @@ import { Link, useNavigate } from "react-router";
 import GoogleIcon from "../../assets/Google.svg";
 import { useAppDispatch } from "../../redux/store";
 import { login } from "../../redux/slices/authSlice";
+import { useTranslation } from "react-i18next";
 const SignIn: React.FC = () => {
   type FormValues = {
     email: string;
@@ -27,33 +27,17 @@ const SignIn: React.FC = () => {
   } = useForm<FormValues>({
     mode: "onBlur",
   });
-
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     const resultAction = await dispatch(login(data)); // Dispatch the thunk
 
     if (login.fulfilled.match(resultAction)) {
-      navigate("/dashboard"); // Navigate to dashboard on success
+      navigate("/verify_code"); // Navigate to dashboard on success
     }
   };
-  //   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-  //     const resultAction = await dispatch(signUpUser(data)); // Dispatch the thunk
 
-  //     if (signUpUser.fulfilled.match(resultAction)) {
-  //       navigate("/login"); // Navigate to dashboard on success
-  //     } else if (signUpUser.rejected.match(resultAction)) {
-  //       const error = resultAction.payload;
-
-  //       if (error && "field" in error) {
-  //         // Field-specific error
-  //         setError(error.field as keyof FormValues, {
-  //           type: "server",
-  //           message: error.message,
-  //         });
-  //       }
-  //     }
-  //   };
   return (
     <Grid
       container
@@ -66,6 +50,7 @@ const SignIn: React.FC = () => {
     >
       <Grid
         component={"form"}
+        id="login_form"
         onSubmit={handleSubmit(onSubmit)}
         rowSpacing={5} // Add spacing between rows
         container
@@ -91,7 +76,7 @@ const SignIn: React.FC = () => {
             component="h1"
             fontWeight="bold"
           >
-            Log in
+            {t("loginPage.mainTitle")}
           </Typography>
         </Grid>
 
@@ -103,7 +88,7 @@ const SignIn: React.FC = () => {
             render={({ field, fieldState }) => (
               <>
                 <InputLabel htmlFor="email" shrink={false}>
-                  <Typography>Email</Typography>
+                  <Typography>{t("generalFields.email")}</Typography>
                 </InputLabel>
                 <TextField
                   {...field}
@@ -125,7 +110,7 @@ const SignIn: React.FC = () => {
             render={({ field, fieldState }) => (
               <>
                 <InputLabel htmlFor="password" shrink={false}>
-                  <Typography>Password</Typography>
+                  <Typography>{t("generalFields.password")}</Typography>
                 </InputLabel>
                 <TextField
                   {...field}
@@ -149,14 +134,14 @@ const SignIn: React.FC = () => {
             }}
             to={"/reset_password"}
           >
-            Forgot password?
+            {t("loginPage.forgotPass")}
           </Link>
         </Grid>
         <Grid size={{ xs: 12, md: 10, lg: 8, xl: 6 }}>
           <Button
             fullWidth
             type="submit"
-            // disabled={!isValid || isSubmitting} // Disable if invalid or submitting
+            disabled={!isValid || isSubmitting} // Disable if invalid or submitting
             style={{
               color: "white",
               backgroundColor: "#000000",
@@ -166,7 +151,9 @@ const SignIn: React.FC = () => {
               marginTop: "0.8em",
             }}
           >
-            {isSubmitting ? "Logging in..." : "Log in"}
+            {isSubmitting
+              ? ` ${t("loginPage.loggingIn")}...`
+              : t("loginPage.loginButton")}
           </Button>
         </Grid>
         <Grid size={{ xs: 12, md: 10, lg: 8, xl: 6 }}>
@@ -183,7 +170,7 @@ const SignIn: React.FC = () => {
                 fontSize: "0.9rem",
               }}
             >
-              Or Login with
+              {t("loginPage.dividerText")}
             </Typography>
           </Divider>
         </Grid>
@@ -219,7 +206,7 @@ const SignIn: React.FC = () => {
           }}
         >
           <Typography fontFamily={"Inter"}>
-            Don't have an account?
+            {t("loginPage.noAccount")}
             <Link
               to="/?createAccount=true"
               style={{
@@ -230,7 +217,7 @@ const SignIn: React.FC = () => {
                 fontFamily: "Inter",
               }}
             >
-              Sign up
+              {t("loginPage.signUp")}
             </Link>
           </Typography>
         </Grid>

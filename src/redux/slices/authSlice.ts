@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axiosApi from "../../constants/axiosApi";
 import { AxiosError } from "axios";
+import { setUser } from "./userSlice";
 
 interface AuthState {
   isAuthenticated: boolean;
@@ -100,12 +101,15 @@ export const login = createAsyncThunk<
   ValidateSessionResponse,
   ValidateLoginParams,
   { rejectValue: ValidateSessionError }
->("auth/login", async (user, { rejectWithValue }) => {
+>("auth/login", async (user, { dispatch, rejectWithValue }) => {
   try {
     const response = await axiosApi.post<ValidateSessionResponse>(
       "/auth/login",
       user
     );
+    if (response.status === 200) {
+      dispatch(setUser(response.data));
+    }
     return response.data;
   } catch (error) {
     const axiosError: AxiosError<ValidateSessionError> =
@@ -116,5 +120,6 @@ export const login = createAsyncThunk<
     );
   }
 });
+
 export const { logout } = authSlice.actions;
 export default authSlice.reducer;

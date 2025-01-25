@@ -5,6 +5,9 @@ import { useAppSelector } from "./redux/store";
 import { SignIn } from "./pages/SignIn/";
 import { Box } from "@mui/material";
 import LandingPageWithQuery from "./pages/Landing/LandingPageWithQuery";
+// import ThemeToggleButton from "./components/ThemeToggleButton";
+import TwoFactAuth from "./pages/TwoFactAuth/TwoFactAuth";
+import PartialProtectedRoute from "./components/PartialProtectedRoute";
 
 function App() {
   const { isAuthenticated } = useAppSelector((state) => state.auth);
@@ -39,11 +42,15 @@ function App() {
           }
         />
         <Route path="/login" element={<SignIn />} />
+        <Route element={<PartialProtectedRoute />}>
+          <Route path="/verify_code" element={<TwoFactAuth />} />
+        </Route>
         <Route element={<ProtectedRoute />}>
           <Route path="/dashboard" element={<h1>Dashboard</h1>} />
           <Route path="/profile" element={<h1>Profile</h1>} />
         </Route>
       </Routes>
+      {/* <ThemeToggleButton /> */}
     </Box>
   );
 }

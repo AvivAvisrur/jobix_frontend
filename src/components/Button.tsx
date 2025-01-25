@@ -5,7 +5,7 @@ import {
 } from "@mui/material";
 
 interface Button extends MuiButtonProps {
-  onClick: () => void; // Optional prop
+  onClick?: () => void; // Optional prop
   style?: object;
 }
 

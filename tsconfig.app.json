@@ -20,6 +20,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
+    "types": ["node"], // Add "node" here to recognize process
     "noUncheckedSideEffectImports": true
   },
   "include": ["src"]

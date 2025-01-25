@@ -5,6 +5,9 @@ import Button from "../../components/Button";
 import { Login } from "../Login";
 import { CSSTransition } from "react-transition-group";
 import CreateAccount from "../CreateAccount/CreateAccount";
+import { useTranslation } from "react-i18next";
+import { motion } from "framer-motion";
+import { Navigate } from "react-router";
 interface LandingPageProps {
   defaultShowCreateAccount?: boolean; // Optional prop to set the initial state
 }
@@ -13,6 +16,7 @@ const LandingPage: React.FC<LandingPageProps> = ({
 }) => {
   const [showSignUp, setShowSignUp] = useState(defaultShowCreateAccount);
   const [showLoginPage, setShowLoginPage] = useState(false);
+  const { t } = useTranslation();
 
   const handleCreateAccountClick = () => {
     setShowSignUp(true);
@@ -23,7 +27,7 @@ const LandingPage: React.FC<LandingPageProps> = ({
 
   const handleContentRender = () => {
     return showLoginPage ? (
-      <Login user="hi" />
+      <Navigate to={"/login"} />
     ) : showSignUp ? (
       <CreateAccount />
     ) : null;
@@ -57,10 +61,12 @@ const LandingPage: React.FC<LandingPageProps> = ({
             fontFamily={"Poppins"}
             whiteSpace={"nowrap"}
           >
-            Welcome to Jobix
+            {t("landingPage.mainTitle")}
           </Typography>
-          <Typography>Now your finances are in one place</Typography>
-          <Typography>and always under control</Typography>
+          <Typography sx={{ whiteSpace: "pre-line" }}>
+            {t("landingPage.mainSubTitle")}
+          </Typography>
+          {/* <Typography>and always under control</Typography> */}
         </Grid>
         <Grid
           container
@@ -93,7 +99,7 @@ const LandingPage: React.FC<LandingPageProps> = ({
                       textTransform: "none",
                     }}
                   >
-                    Sign In
+                    {t("landingPage.signInButton")}
                   </Button>
                 </Grid>
                 <Grid size={{ xs: 6, md: 4, lg: 4, xl: 4 }}>
@@ -110,7 +116,7 @@ const LandingPage: React.FC<LandingPageProps> = ({
                       textTransform: "none",
                     }}
                   >
-                    Create account
+                    {t("landingPage.createAccountButton")}
                   </Button>
                 </Grid>
               </>
@@ -133,11 +139,16 @@ const LandingPage: React.FC<LandingPageProps> = ({
         }}
       >
         <Grid>
-          <Typography fontFamily={"Wittgenstein"} fontSize={"2.5rem"}>
-            You are what you do,
-          </Typography>
-          <Typography fontFamily={"Wittgenstein"} fontSize={"2.5rem"}>
-            not what you’ll do
+          <Typography
+            component={motion.div}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 2 }}
+            sx={{ whiteSpace: "pre-line", display: "inline-block" }}
+            fontFamily={"Wittgenstein"}
+            fontSize={"2.5rem"}
+          >
+            {`“${t("landingPage.banner")}”`}
           </Typography>
         </Grid>
         {/* Or place a logo, branding, or any custom content here */}

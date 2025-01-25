@@ -1,0 +1,36 @@
+{
+    "loginPage":{
+        "mainTitle":"Log in",
+        "forgotPass":"Forgot password?",
+        "loginButton":"Log in",
+        "loggingIn":"Logging In",
+        "dividerText":"Or Login With",
+        "noAccount":"Don't have an account?",
+        "signUp":"Sign up"
+        
+
+    },
+    "landingPage":{
+        "mainTitle":"Welcome To Jobix",
+        "mainSubTitle":"Now your finances are in one place\nand always under control",
+        "signInButton":"Sign in",
+        "createAccountButton":"Create Account",
+        "banner":"You are what you do,\nnot what you’ll do"
+    },
+    "createAccount":{
+        "mainTitle":"Create Account"
+    },
+    "generalFields":{
+        "firstName":"First Name",
+        "lastName":"Last Name",
+        "email":"Email",
+        "mobileNumber":"Mobile Number",
+        "mobileFormat":"+0123456789",
+        "password":"password",
+        "submitButton":"Submit",
+        "submitting":"Submitting"
+        
+    },
+    "language": "Language",
+    "switchLanguage": "Switch Language"
+  }

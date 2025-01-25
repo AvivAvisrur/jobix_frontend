@@ -1,0 +1,33 @@
+{
+    "loginPage": {
+        "mainTitle": "התחברות",
+        "forgotPass": "שכחת סיסמה?",
+        "loginButton": "התחבר",
+        "loggingIn": "מתחבר",
+        "dividerText": "או התחבר באמצעות",
+        "noAccount": "אין לך חשבון?",
+        "signUp": "הירשם"
+    },
+    "landingPage": {
+        "mainTitle": "ברוכים הבאים לג'וביקס",
+        "mainSubTitle": "עכשיו כל הפיננסים שלכם במקום אחד\nותמיד בשליטה",
+        "signInButton": "התחבר",
+        "createAccountButton": "צור חשבון",
+        "banner": "אתה מה שאתה עושה,\nלא מה שתעשה"
+    },
+    "createAccount":{
+        "mainTitle": "יצירת חשבון"
+    },
+    "generalFields":{
+        "firstName": "שם פרטי",
+        "lastName": "שם משפחה",
+        "email": "אימייל",
+        "mobileNumber": "מספר טלפון",
+        "mobileFormat":"050-123456789",
+        "password": "סיסמה",
+        "submitButton": "שלח",
+        "submitting": "שולח"
+    },
+    "language": "שפה",
+    "switchLanguage": "החלף שפה"
+}

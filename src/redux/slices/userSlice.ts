@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axiosApi from "../../constants/axiosApi";
 import { AxiosError } from "axios";
-import { GeneralError, ValidationError } from "../../constants/Globaltypes";
+import { GeneralError, ValidationError } from "../../constants/globalTypes";
 
 type AuthState = {
   user: null | {
